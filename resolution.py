@@ -1,3 +1,6 @@
+from sympy.logic.boolalg import *
+
+
 def remove_all(item, seq):
     if isinstance(seq, str):
         return seq.replace(item, '')
@@ -27,7 +30,6 @@ def associate(op, args):
 
 def dissociate(op, args):
     result = []
-    print(args, op)
     def collect(subargs):
         for arg in subargs:
             if isinstance(arg, op):
@@ -82,3 +84,4 @@ def pl_resolution(kb, alpha):
         for c in new:
             if c not in clauses:
                 clauses.append(c)
+print(pl_resolution([to_cnf("a"), to_cnf("a & b")], to_cnf("b")))
