@@ -17,29 +17,31 @@ def actions():
 
 
 def user_input(base):
-    print("What's next? : \n >>> ")
-    action = input()
+    actions()
+    action = input("What's next? : \n >>> ")
     action = action.lower()
 
-    if action == 'r':
-    
+    if action == 'r':    
         print("What is the formula to check ? : ")
         formula = input(">>> ")
         try:
             formula = to_cnf(formula)
-            #insert revision call
+            #insert revision call here
         except SympifyError:
             print("The formula isn't valid and can't be converted to CNF format")
 
     elif action == 'e':
+        print("Emptying the base")
         base.clear()
         print(base)
 
 
     elif action == 'p':
+        print("Printing the base")
         print (base)
     
     elif action == 'q':
+        print("Exiting program")
         exit()
 
     else: 
