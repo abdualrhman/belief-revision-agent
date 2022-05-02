@@ -1,5 +1,23 @@
 from sympy.logic.boolalg import *
+from sympy import *
+from sympy.abc import *
 
+# class BeliefBase():
+
+#     def __init__(self):
+#         self.belief_base = []
+
+   
+#     def add_belief (self, belief):
+#          self.belief_base.append(belief)
+#     def get_belief_base(self):
+#         return self.belief_base
+
+#     def remove_belief (self, belief):
+#         for belief_dic in self.belief_base:
+#             if belief_dic["clause"] == belief :
+#                 self.belief_base.remove(belief_dic)
+                
 
 def remove_all(item, seq):
     if isinstance(seq, str):
@@ -40,6 +58,7 @@ def dissociate(op, args):
     collect(args)
     return result
 
+# bb=BeliefBase()
 
 
 
@@ -59,14 +78,15 @@ def pl_resolution(kb, alpha):
     >>> pl_resolution(horn_clauses_KB, A)
     True
     """
+    justif=[]
     alpha = to_cnf(alpha)
     clauses = []
     for c in kb:
         clauses += conjuncts(c)
         
     clauses+=conjuncts(to_cnf(~alpha))
-    if False in clauses:
-        return True
+    if False in clauses:        
+        return True 
     new = set()
     while True:
         n = len(clauses)
@@ -75,13 +95,39 @@ def pl_resolution(kb, alpha):
         for (ci, cj) in pairs:
             # print(type(ci), type(cj))
             resolvents = pl_resolve(ci, cj)
-            # contain emepty clause 
-            if False in resolvents:
-                return True
+            # contain empty clause 
+            if False in resolvents: 
+                justif.append(clauses)
+                return True , justif ,1
             new = new.union(set(resolvents))
         if new.issubset(set(clauses)):
-            return False 
+            
+            return False , justif.append(clauses),2 
         for c in new:
             if c not in clauses:
                 clauses.append(c)
-print(pl_resolution([to_cnf("a"), to_cnf("a & b")], to_cnf("b")))
+            return  clauses
+
+
+
+
+
+
+
+       
+
+
+
+
+
+
+
+
+# #     'clause' : 'formular_1',
+# #     'date': int(time.time()) 
+# # }
+# bb=BeliefBase()
+# bb.add_belief(test_dict)
+# print(bb.get_belief_base())
+# pl_resolution(bb.clause,test_dict)
+# print(bb.get_belief_base())
