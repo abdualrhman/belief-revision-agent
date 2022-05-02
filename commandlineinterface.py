@@ -1,6 +1,10 @@
-from sympy import to_cnf, SympifyError
+from sympy import SympifyError
 from resolution import pl_resolution, pl_resolve
 from datetime import datetime
+from sympy.logic.boolalg import *
+from sympy import *
+from sympy.abc import *
+
 
 now = datetime.now()
 base = {}
@@ -43,7 +47,7 @@ def user_input(base):
         actions()
 
 
-print("PLease enter the formulas that wil make up your base:\n If you're done please type 'quit' ")
+print("Please enter the formulas that will make up your base:\n If you're done please type 'quit' ")
 temp_base = []
 while True:
     base_input = input()
@@ -51,7 +55,7 @@ while True:
         break
     else:
         try:
-            base_input = to_cnf(input)
+            base_input = to_cnf(base_input)
             temp_base.append(base_input)  
         except SympifyError:
                 print("The formula isn't valid and can't be converted to CNF format")
